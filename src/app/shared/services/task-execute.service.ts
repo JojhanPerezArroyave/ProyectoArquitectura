@@ -11,7 +11,7 @@ export class TaskExecuteService {
       setTimeout(() => {
         task();
         resolve;
-      }, 1000);
+      }, 800);
     })
   };
 }

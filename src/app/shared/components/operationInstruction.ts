@@ -45,7 +45,7 @@ export class OperationInstruction {
   }
 
   getOperand(operand: string) {
-    switch (operand.toUpperCase()) {
+    switch (operand?.toUpperCase()) {
       case 'A':
         return VarInstructions.A;
       case 'B':

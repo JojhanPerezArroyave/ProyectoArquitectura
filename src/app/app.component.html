@@ -1,0 +1,132 @@
+<div class="container">
+  <div class="container__body">
+    <header>
+      <button
+        class="header__button"
+        mat-raised-button
+        color="primary"
+        (click)="loadAndExecuteInstructions()"
+        [disabled]="!enableExecuteButton"
+      >
+        <mat-icon>play_arrow</mat-icon>Ejecutar
+      </button>
+    </header>
+
+    <div class="container__body__principal">
+      <mat-form-field class="container__body__principal__input">
+        <mat-label>Escribe tu código aquí</mat-label>
+        <textarea matInput [(ngModel)]="enteredInstruction"></textarea>
+      </mat-form-field>
+
+      <div class="container__body__principal__center">
+        <div class="container__body__principal__center__down">
+          <div class="container__body__principal__center__first-container">
+            <div
+              class="PC"
+              [ngClass]="{ elemento__procesador__activo: pcIsActive }"
+            >
+              PC
+              <br />
+              {{ PC + 1 }}
+            </div>
+            <div
+              class="MAR"
+              [ngClass]="{ elemento__procesador__activo: marIsActive }"
+            >
+              MAR
+              <br />
+              {{ MAR + 1 }}
+            </div>
+          </div>
+          <div
+            class="container__body__principal__center__UC"
+            [ngClass]="{ elemento__procesador__activo: ucIsActive }"
+          >
+            Unidad de control
+          </div>
+          <div
+            class="container__body__principal__center__ALU"
+            [ngClass]="{ elemento__procesador__activo: aluIsActive }"
+          >
+            <div>
+              <div>
+                <span>{{ ALU.firstOperand }}</span> *****
+                <span>{{ ALU.secondOperand }}</span>
+              </div>
+              ALU
+              <br />
+              {{ ALU.executeToOperation }}
+            </div>
+          </div>
+          <div
+            class="container__body__principal__center__MBR"
+            [ngClass]="{ elemento__procesador__activo: mbrIsActive }"
+          >
+            MBR
+            <br />
+            {{ MBR }}
+          </div>
+          <div
+            class="container__body__principal__center__IR"
+            [ngClass]="{ elemento__procesador__activo: irIsActive }"
+          >
+            IR
+            <br />
+            {{ IR }}
+          </div>
+          <div
+            class="container__body__principal__center__AG"
+            [ngClass]="{ elemento__procesador__activo: generalMemoryIsActive }"
+          >
+            <div>
+              Almacén general
+              <br />
+              <div>
+                Ax: {{ generalMemory?.A }} - Bx: {{ generalMemory?.B }} <br />
+                Cx: {{ generalMemory?.C }} - Dx: {{ generalMemory?.D }} <br />
+                Ex: {{ generalMemory?.E }} - Fx: {{ generalMemory?.F }} <br />
+                Gx: {{ generalMemory?.G }} - Hx: {{ generalMemory?.H }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container__body__principal__buses">
+        <div class="buses__container">
+          <div
+            class="directions"
+            [ngClass]="{ elemento__procesador__activo: addressBusIsActive }"
+          ></div>
+          <div class="bus_name">Bus de direcciones</div>
+        </div>
+        <div>
+          <div
+            class="data"
+            [ngClass]="{ elemento__procesador__activo: dataBusIsActive }"
+          ></div>
+          <div class="bus_name">Bus de datos</div>
+        </div>
+        <div>
+          <div
+            class="control"
+            [ngClass]="{ elemento__procesador__activo: controlBusIsActive }"
+          ></div>
+          <div class="bus_name">Bus de control</div>
+        </div>
+      </div>
+
+      <mat-card
+        class="container__body__principal__card"
+        [ngClass]="{ elemento__procesador__activo: memoryIsActive }"
+      >
+        <mat-card-title>Memoria principal</mat-card-title>
+        <mat-card-content>
+          <div *ngFor="let instruccion of memory.cells; index as index">
+            {{ index + 1 }} - {{ instruccion }}
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

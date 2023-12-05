@@ -208,13 +208,13 @@ export class AppComponent {
     await this.taskExecuteService.timeForExecution(() => {
       this.activeElement = CpuElements.GENERAL_MEMORY;
     })
-    const numero1 = this.obtenerValorAlmacenGeneral(firstOperand);
-    const numero2 = this.obtenerValorAlmacenGeneral(secondOperant);
+    const numero1 = this.getValueGeneralMemory(firstOperand);
+    const numero2 = this.getValueGeneralMemory(secondOperant);
     const resultadoOperacion = this.ALU.executeOperation(operation, numero1, numero2);
     return resultadoOperacion;
   }
 
-  private obtenerValorAlmacenGeneral(variableAObtener: number | VarInstructions| undefined) {
+  private getValueGeneralMemory(variableAObtener: number | VarInstructions| undefined) {
     if (variableAObtener == undefined) {
       return 0;
     }
