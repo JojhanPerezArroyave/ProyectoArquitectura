@@ -4,47 +4,50 @@ import {
 } from '../models/enums/instructions.enum';
 
 export class OperationInstruction {
-  operation?: Instructions;
-  firstOperand?: number;
-  secondOperand?: number;
-  thirdOperand?: number;
-  instructionText?: string;
+  operation: Instructions | undefined;
+  firstOperand: number | VarInstructions | undefined;
+  secondOperand: number | VarInstructions | undefined;
+  thirdOperand: number | VarInstructions | undefined;
+  instructionText: string;
 
   constructor(instructionText: string) {
     this.instructionText = instructionText;
     this.segmentInstruction();
   }
 
-  segmentInstruction() {
-    let instructionArray = this.instructionText?.split(' ');
-    this.operation = this.getOperation(instructionArray![0]);
-    this.firstOperand = this.getOperand(instructionArray![1]);
-    this.secondOperand = this.getOperand(instructionArray![2]);
-    this.thirdOperand = this.getOperand(instructionArray![3]);
+  segmentInstruction() : void {
+    let instructionArray = this.instructionText.split(' ');
+    this.operation = this.getOperation(instructionArray[0]);
+    this.firstOperand = this.getOperand(instructionArray[1]);
+    this.secondOperand = this.getOperand(instructionArray[2]);
+    this.thirdOperand = this.getOperand(instructionArray[3]);
   }
 
   getOperation(operation: string) {
-    switch (operation) {
-      case Instructions.LOAD:
+    switch (operation.toUpperCase()) {
+      case 'LOAD':
         return Instructions.LOAD;
-      case Instructions.STOP:
+      case 'STOP':
         return Instructions.STOP;
-      case Instructions.ADD:
+      case 'ADD':
         return Instructions.ADD;
-      case Instructions.SUB:
+      case 'SUB':
         return Instructions.SUB;
-      case Instructions.MUL:
+      case 'MUL':
         return Instructions.MUL;
-      case Instructions.DIV:
+      case 'DIV':
         return Instructions.DIV;
-      case Instructions.JUMP:
+      case 'JUMP':
         return Instructions.JUMP;
       default:
-        return Instructions.STOP;
+        return undefined;
     }
   }
 
   getOperand(operand: string) {
+    if (operand === undefined) {
+      return undefined;
+    }
     switch (operand?.toUpperCase()) {
       case 'A':
         return VarInstructions.A;
@@ -62,12 +65,12 @@ export class OperationInstruction {
         return VarInstructions.G;
       case 'H':
         return VarInstructions.H;
-      case 'I':
-        return VarInstructions.I;
-      case 'J':
-        return VarInstructions.J;
       default:
-        return 0;
+        return Number(operand);
     }
+  }
+
+  toString() {
+    return this.instructionText;
   }
 }

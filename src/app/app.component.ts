@@ -24,7 +24,7 @@ export class AppComponent {
   IR: OperationInstruction | undefined;
   ALU: ALU = new ALU();
   memory: Memory = new Memory();
-  generalMemory?: GeneralMemory;
+  generalMemory: GeneralMemory = new GeneralMemory();
 
   constructor(private taskExecuteService:TaskExecuteService) {
     this.status = Status.STOPPED;
@@ -103,7 +103,9 @@ export class AppComponent {
     const firstOperand: number | VarInstructions| undefined = this.IR.firstOperand;
     const secondOperant: number | VarInstructions| undefined = this.IR.secondOperand;
     const thirdOperand: number | VarInstructions| undefined = this.IR.thirdOperand;
-
+    console.log(operation, firstOperand, secondOperant, thirdOperand);
+    
+    
     switch (operation) {
       case Instructions.LOAD:
         await this.executeInstructionLoad(firstOperand, secondOperant);
@@ -132,66 +134,71 @@ export class AppComponent {
     await this.taskExecuteService.timeForExecution(() => {
       this.activeElement = CpuElements.GENERAL_MEMORY;
     })
+
     await this.taskExecuteService.timeForExecution(() => {
+      console.log(number);
+      
       switch(varToSave) {
         case VarInstructions.A:
-          this.generalMemory!.A = number;
+          this.generalMemory.A = number;      
           break;
         case VarInstructions.B:
-          this.generalMemory!.B = number;
+          this.generalMemory.B = number;
           break;
         case VarInstructions.C:
-          this.generalMemory!.C = number;
+          this.generalMemory.C = number;
           break;
         case VarInstructions.D:
-          this.generalMemory!.D = number;
+          this.generalMemory.D = number;
           break;
         case VarInstructions.E:
-          this.generalMemory!.E = number;
+          this.generalMemory.E = number;
           break;
         case VarInstructions.F:
-          this.generalMemory!.F = number;
+          this.generalMemory.F = number;
           break;
         case VarInstructions.G:
-          this.generalMemory!.G = number;
+          this.generalMemory.G = number;
           break;
         case VarInstructions.H:
-          this.generalMemory!.H = number;
+          this.generalMemory.H = number;
           break;
         default:
           break;
       }
     })
+    console.log(this.generalMemory);
+    
   }
 
-  private async executeMatematicInstruction(tipoOperacion: Instructions, primeraVariable: number | VarInstructions| undefined, segundaVariable: number | VarInstructions| undefined, variableDestino: number | VarInstructions| undefined): Promise<void> {
+  private async executeMatematicInstruction(operationType: Instructions, primeraVariable: number | VarInstructions| undefined, segundaVariable: number | VarInstructions| undefined, variableDestino: number | VarInstructions| undefined): Promise<void> {
     if (primeraVariable == undefined || segundaVariable == undefined) {
       return;
     }
     switch(variableDestino) {
       case VarInstructions.A:
-        this.generalMemory!.A = await this.executeAluOperation(tipoOperacion, primeraVariable, segundaVariable);
+        this.generalMemory.A = await this.executeAluOperation(operationType, primeraVariable, segundaVariable);
         break;
       case VarInstructions.B:
-        this.generalMemory!.B = await this.executeAluOperation(tipoOperacion, primeraVariable, segundaVariable);
+        this.generalMemory.B = await this.executeAluOperation(operationType, primeraVariable, segundaVariable);
         break;
       case VarInstructions.C:
-        this.generalMemory!.C = await this.executeAluOperation(tipoOperacion, primeraVariable, segundaVariable);
+        this.generalMemory.C = await this.executeAluOperation(operationType, primeraVariable, segundaVariable);
         break;
       case VarInstructions.D:
-        this.generalMemory!.D = await this.executeAluOperation(tipoOperacion, primeraVariable, segundaVariable);
+        this.generalMemory.D = await this.executeAluOperation(operationType, primeraVariable, segundaVariable);
         break;
       case VarInstructions.E:
-        this.generalMemory!.E = await this.executeAluOperation(tipoOperacion, primeraVariable, segundaVariable);
+        this.generalMemory.E = await this.executeAluOperation(operationType, primeraVariable, segundaVariable);
         break;
       case VarInstructions.F:
-        this.generalMemory!.F = await this.executeAluOperation(tipoOperacion, primeraVariable, segundaVariable);
+        this.generalMemory.F = await this.executeAluOperation(operationType, primeraVariable, segundaVariable);
         break;
       case VarInstructions.G:
-        this.generalMemory!.G = await this.executeAluOperation(tipoOperacion, primeraVariable, segundaVariable);
+        this.generalMemory.G = await this.executeAluOperation(operationType, primeraVariable, segundaVariable);
         break;
       case VarInstructions.H:
-        this.generalMemory!.H = await this.executeAluOperation(tipoOperacion, primeraVariable, segundaVariable);
+        this.generalMemory.H = await this.executeAluOperation(operationType, primeraVariable, segundaVariable);
         break;
       default:
         break;
@@ -208,33 +215,33 @@ export class AppComponent {
     await this.taskExecuteService.timeForExecution(() => {
       this.activeElement = CpuElements.GENERAL_MEMORY;
     })
-    const numero1 = this.getValueGeneralMemory(firstOperand);
-    const numero2 = this.getValueGeneralMemory(secondOperant);
-    const resultadoOperacion = this.ALU.executeOperation(operation, numero1, numero2);
-    return resultadoOperacion;
+    const firstnumber = this.getValueGeneralMemory(firstOperand);
+    const secondNumber = this.getValueGeneralMemory(secondOperant);
+    const resultOperation = this.ALU.executeOperation(operation, firstnumber, secondNumber);
+    return resultOperation;
   }
 
-  private getValueGeneralMemory(variableAObtener: number | VarInstructions| undefined) {
-    if (variableAObtener == undefined) {
+  private getValueGeneralMemory(getToVar: number | VarInstructions| undefined) {
+    if (getToVar == undefined) {
       return 0;
     }
-    switch(variableAObtener) {
+    switch(getToVar) {
       case VarInstructions.A:
-        return this.generalMemory!.A;
+        return this.generalMemory.A;
       case VarInstructions.B:
-        return this.generalMemory!.B;
+        return this.generalMemory.B;
       case VarInstructions.C:
-        return this.generalMemory!.C;
+        return this.generalMemory.C;
       case VarInstructions.D:
-        return this.generalMemory!.D;
+        return this.generalMemory.D;
       case VarInstructions.E:
-        return this.generalMemory!.E;
+        return this.generalMemory.E;
       case VarInstructions.F:
-        return this.generalMemory!.F;
+        return this.generalMemory.F;
       case VarInstructions.G:
-        return this.generalMemory!.G;
+        return this.generalMemory.G;
       case VarInstructions.H:
-        return this.generalMemory!.H;
+        return this.generalMemory.H;
       default:
         return 0;
     }
@@ -295,4 +302,5 @@ export class AppComponent {
   get controlBusIsActive(): boolean {
     return this.activeElement == CpuElements.CONTROL_BUS;
   }
+  
 }

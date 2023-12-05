@@ -1,134 +1,78 @@
 <div class="container">
-  <div class="container__body">
-    <header>
-      <button
-        class="header__button"
-        mat-raised-button
-        color="primary"
-        (click)="loadAndExecuteInstructions()"
-        [disabled]="!enableExecuteButton"
-      >
-        <mat-icon>play_arrow</mat-icon>Ejecutar
-      </button>
-    </header>
-
-    <div class="container__body__principal">
-      <mat-form-field class="container__body__principal__input">
+  <div class="computer-container">
+    <div class="code">
+      <mat-form-field class="code-screen">
         <mat-label>Escribe tu código aquí</mat-label>
         <textarea matInput [(ngModel)]="enteredInstruction"></textarea>
       </mat-form-field>
-
-      <div class="container__body__principal__center">
-        <div class="container__body__principal__center__down">
-          <div class="container__body__principal__center__first-container">
-            <div
-              class="PC"
-              [ngClass]="{ elemento__procesador__activo: pcIsActive }"
-            >
-            {{pcIsActive}}
-              PC
-              <br />
-              {{ PC + 1 }}
-            </div>
-            <div
-              class="MAR"
-              [ngClass]="{ elemento__procesador__activo: marIsActive }"
-            >
-            {{marIsActive}}
-              MAR
-              <br />
-              {{ MAR + 1 }}
-            </div>
-          </div>
-          <div
-            class="container__body__principal__center__UC"
-            [ngClass]="{ elemento__procesador__activo: ucIsActive }"
-          >
-            Unidad de control
-          </div>
-          <div
-            class="container__body__principal__center__ALU"
-            [ngClass]="{ elemento__procesador__activo: aluIsActive }"
-          >
-            <div>
-              <div>
-                <span>{{ ALU.firstOperand }}</span> *****
-                <span>{{ ALU.secondOperand }}</span>
-              </div>
-              ALU
-              <br />
-              {{ ALU.executeToOperation }}
-            </div>
-          </div>
-          <div
-            class="container__body__principal__center__MBR"
-            [ngClass]="{ elemento__procesador__activo: mbrIsActive }"
-          >
-            MBR
-            <br />
-            {{ MBR }}
-          </div>
-          <div
-            class="container__body__principal__center__IR"
-            [ngClass]="{ elemento__procesador__activo: irIsActive }"
-          >
-            IR
-            <br />
-            {{ IR }}
-          </div>
-          <div
-            class="container__body__principal__center__AG"
-            [ngClass]="{ elemento__procesador__activo: generalMemoryIsActive }"
-          >
-            <div>
-              Almacén general
-              <br />
-              <div>
-                Ax: {{ generalMemory?.A }} - Bx: {{ generalMemory?.B }} <br />
-                Cx: {{ generalMemory?.C }} - Dx: {{ generalMemory?.D }} <br />
-                Ex: {{ generalMemory?.E }} - Fx: {{ generalMemory?.F }} <br />
-                Gx: {{ generalMemory?.G }} - Hx: {{ generalMemory?.H }}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="container__body__principal__buses">
-        <div class="buses__container">
-          <div
-            class="directions"
-            [ngClass]="{ elemento__procesador__activo: addressBusIsActive }"
-          ></div>
-          <div class="bus_name">Bus de direcciones</div>
-        </div>
-        <div>
-          <div
-            class="data"
-            [ngClass]="{ elemento__procesador__activo: dataBusIsActive }"
-          ></div>
-          <div class="bus_name">Bus de datos</div>
-        </div>
-        <div>
-          <div
-            class="control"
-            [ngClass]="{ elemento__procesador__activo: controlBusIsActive }"
-          ></div>
-          <div class="bus_name">Bus de control</div>
-        </div>
-      </div>
-
-      <mat-card
-        class="container__body__principal__card"
-        [ngClass]="{ elemento__procesador__activo: memoryIsActive }"
-      >
-        <mat-card-title>Memoria principal</mat-card-title>
-        <mat-card-content>
-          <div *ngFor="let instruccion of memory.cells; index as index">
-            {{ index + 1 }} - {{ instruccion }}
-          </div>
-        </mat-card-content>
-      </mat-card>
+      <button style="margin-top: 10px;" mat-raised-button color="primary" (click)="loadAndExecuteInstructions()" [disabled]="!enableExecuteButton">
+        <mat-icon>play_arrow</mat-icon>Ejecutar
+      </button>
     </div>
+
+    <div class="cpu-container">
+      <div class="pc-container">
+        <div class="count-container" [ngClass]="{ elemento__procesador__activo: pcIsActive }">
+          <h2>PC</h2>
+          <h3>{{ PC + 1 }}</h3>
+        </div>
+        <div class="count-container" [ngClass]="{ elemento__procesador__activo: marIsActive }">
+          <h2>MAR</h2>
+          <h3>{{ MAR + 1 }}</h3>
+        </div>
+      </div>
+      <div class="uc-container" [ngClass]="{ elemento__procesador__activo: ucIsActive }">
+        <h2>Unidad de control</h2>
+      </div>
+      <div class="alu-container" [ngClass]="{ elemento__procesador__activo: aluIsActive }">
+        <div>
+          <h2>ALU</h2>
+          <div>
+            <span>{{ ALU.firstOperand }}</span>
+            <span>*****</span>
+            <span>{{ ALU.secondOperand }}</span>
+          </div>
+          {{ ALU.executeToOperation }}
+        </div>
+      </div>
+      <div class="mbr-container" [ngClass]="{ elemento__procesador__activo: mbrIsActive }">
+        <h2>MBR</h2>
+        <h3>{{ MBR }}</h3>
+      </div>
+      <div class="ir-container" [ngClass]="{ elemento__procesador__activo: irIsActive }">
+        <h2>IR</h2>
+        <h3>{{ IR }}</h3>
+      </div>
+      <div class="registers" [ngClass]="{ elemento__procesador__activo: generalMemoryIsActive }">
+        <h2>Banco de registros</h2>
+        <div>
+          Ax: {{ generalMemory.A }} - Bx: {{ generalMemory.B }} <br />
+          Cx: {{ generalMemory.C }} - Dx: {{ generalMemory.D }} <br />
+          Ex: {{ generalMemory.E }} - Fx: {{ generalMemory.F }} <br />
+          Gx: {{ generalMemory.G }} - Hx: {{ generalMemory.H }}
+        </div>
+      </div>
+    </div>
+
+    <div class="bus-container">
+      <div class="address" [ngClass]="{ elemento__procesador__activo: addressBusIsActive }">
+        <div>Bus de Direcciones</div>
+      </div>
+      <div class="data" [ngClass]="{ elemento__procesador__activo: dataBusIsActive }">
+        <div>Bus de Datos</div>
+      </div>
+      <div class="control" [ngClass]="{ elemento__procesador__activo: controlBusIsActive }">
+        <div>Bus de Control</div>
+      </div>
+    </div>
+    <mat-card class="memory-container" [ngClass]="{ elemento__procesador__activo: memoryIsActive }">
+      <mat-card-title>Memoria principal</mat-card-title>
+      <mat-card-content>
+        <div *ngFor="let instruction of memory.cells; index as index">
+          {{ index + 1 }} - {{ instruction }}
+        </div>
+      </mat-card-content>
+    </mat-card>
   </div>
+
 </div>

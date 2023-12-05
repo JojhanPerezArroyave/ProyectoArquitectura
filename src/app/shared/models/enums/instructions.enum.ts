@@ -17,6 +17,4 @@ export enum VarInstructions {
   F,
   G,
   H,
-  I,
-  J,
 };
