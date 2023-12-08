@@ -91,7 +91,12 @@ export class AppComponent {
     })
     if (this.lineForExecute()) {
       this.PC++;
+      if (this.status === Status.STOPPED) {
+        return; 
+      }
       this.executeSaveIntructions();
+    } else {
+      this.status = Status.STOPPED;
     }
   }
 
@@ -302,5 +307,13 @@ export class AppComponent {
   get controlBusIsActive(): boolean {
     return this.activeElement == CpuElements.CONTROL_BUS;
   }
+
+  stopExecution() {
+    this.status = Status.STOPPED;
+  }
+
+  get enableStopButton(): boolean {
+    return this.status === Status.RUNNING;
+  }  
   
 }

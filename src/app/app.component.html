@@ -3,11 +3,18 @@
     <div class="code">
       <mat-form-field class="code-screen">
         <mat-label>Escribe tu código aquí</mat-label>
-        <textarea matInput [(ngModel)]="enteredInstruction"></textarea>
+        <textarea matInput [(ngModel)]="enteredInstruction" style="height: 500px"></textarea>
       </mat-form-field>
-      <button style="margin-top: 10px;" mat-raised-button color="primary" (click)="loadAndExecuteInstructions()" [disabled]="!enableExecuteButton">
-        <mat-icon>play_arrow</mat-icon>Ejecutar
-      </button>
+      <div class="actions-buttons">
+        <button style="margin-top: 10px" mat-raised-button color="primary" (click)="loadAndExecuteInstructions()"
+          [disabled]="!enableExecuteButton">
+          <mat-icon>play_arrow</mat-icon>Ejecutar
+        </button>
+        <button style="margin-top: 10px" mat-raised-button color="warn" (click)="stopExecution()"
+          [disabled]="!enableStopButton">
+          <mat-icon>stop</mat-icon>Detener
+        </button>
+      </div>
     </div>
 
     <div class="cpu-container">
@@ -66,7 +73,9 @@
       </div>
     </div>
     <mat-card class="memory-container" [ngClass]="{ elemento__procesador__activo: memoryIsActive }">
-      <mat-card-title>Memoria principal</mat-card-title>
+      <h3 class="memory-title">
+        <mat-card-title>Memoria principal</mat-card-title>
+      </h3>
       <mat-card-content>
         <div *ngFor="let instruction of memory.cells; index as index">
           {{ index + 1 }} - {{ instruction }}
@@ -74,5 +83,4 @@
       </mat-card-content>
     </mat-card>
   </div>
-
 </div>
