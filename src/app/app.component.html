@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" style="background-color: #EEF5FF;">
   <div class="computer-container">
     <div class="code">
       <mat-form-field class="code-screen">
@@ -70,6 +70,9 @@
       </div>
       <div class="control" [ngClass]="{ elemento__procesador__activo: controlBusIsActive }">
         <div>Bus de Control</div>
+      </div>
+      <div class="screen"> 
+        <h3> Resultado operación: {{lastModifiedValue}}</h3>
       </div>
     </div>
     <mat-card class="memory-container" [ngClass]="{ elemento__procesador__activo: memoryIsActive }">

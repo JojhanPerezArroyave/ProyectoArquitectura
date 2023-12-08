@@ -17,6 +17,7 @@ export class AppComponent {
   enteredInstruction: string = '';
   activeElement: CpuElements;
   status: Status;
+  lastModifiedValue: number | undefined;
 
   PC: number = 0;
   MAR: number = 0;
@@ -172,8 +173,6 @@ export class AppComponent {
           break;
       }
     })
-    console.log(this.generalMemory);
-    
   }
 
   private async executeMatematicInstruction(operationType: Instructions, primeraVariable: number | VarInstructions| undefined, segundaVariable: number | VarInstructions| undefined, variableDestino: number | VarInstructions| undefined): Promise<void> {
@@ -208,6 +207,8 @@ export class AppComponent {
       default:
         break;
     }
+    let valueToSave = variableDestino == undefined ? 0 : this.getValueGeneralMemory(variableDestino);
+    this.lastModifiedValue = valueToSave;
   }
 
   private async executeAluOperation(operation: Instructions, firstOperand: number | VarInstructions| undefined, secondOperant: number | VarInstructions| undefined): Promise<number> {
@@ -226,7 +227,7 @@ export class AppComponent {
     return resultOperation;
   }
 
-  private getValueGeneralMemory(getToVar: number | VarInstructions| undefined) {
+   getValueGeneralMemory(getToVar: number | VarInstructions| undefined) {
     if (getToVar == undefined) {
       return 0;
     }
