@@ -20,6 +20,8 @@ export class ALU {
                 return this.div(firstOperand, secondOperand);
             case Instructions.INC:
                 return this.inc(firstOperand);
+            case Instructions.DEC:
+                return this.dec(firstOperand);
             default:
                 return 0;
         }
@@ -43,5 +45,9 @@ export class ALU {
 
     inc(firstOperand: number) {
         return firstOperand + 1;
+    }
+
+    dec(firstOperand: number) {
+        return firstOperand - 1;
     }
 }

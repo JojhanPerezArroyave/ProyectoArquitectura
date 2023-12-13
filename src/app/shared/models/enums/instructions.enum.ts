@@ -6,6 +6,7 @@ export enum Instructions {
   MUL = 'MUL',
   DIV = 'DIV',
   INC = 'INC',
+  DEC = 'DEC',
 }
 
 export enum VarInstructions {

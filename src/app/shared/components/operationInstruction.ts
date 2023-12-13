@@ -39,6 +39,8 @@ export class OperationInstruction {
         return Instructions.DIV;
       case 'INC':
         return Instructions.INC;
+      case 'DEC':
+        return Instructions.DEC;
       default:
         return undefined;
     }

@@ -131,6 +131,9 @@ export class AppComponent {
       case Instructions.INC:
         await this.executeMatematicInstruction(Instructions.INC, firstOperand,0, firstOperand);
         break;
+      case Instructions.DEC:
+        await this.executeMatematicInstruction(Instructions.DEC, firstOperand,0, firstOperand);
+        break;  
       default:
         break;
     }
@@ -255,10 +258,6 @@ export class AppComponent {
         return 0;
     }
   }
-
-  // private async executeInstructionInc(operation: Instructions, firstOperand: number | VarInstructions| undefined): Promise<number> {
-  //   return 0;
-  // }
 
   get enableExecuteButton(): boolean {
     return this.status == Status.STOPPED;
