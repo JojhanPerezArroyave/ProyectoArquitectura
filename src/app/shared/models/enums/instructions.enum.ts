@@ -5,7 +5,7 @@ export enum Instructions {
   SUB = 'SUB',
   MUL = 'MUL',
   DIV = 'DIV',
-  JUMP = 'JUMP',
+  INC = 'INC',
 }
 
 export enum VarInstructions {

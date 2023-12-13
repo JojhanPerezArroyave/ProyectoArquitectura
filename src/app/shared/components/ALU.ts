@@ -18,6 +18,8 @@ export class ALU {
                 return this.mul(firstOperand, secondOperand);
             case Instructions.DIV:
                 return this.div(firstOperand, secondOperand);
+            case Instructions.INC:
+                return this.inc(firstOperand);
             default:
                 return 0;
         }
@@ -37,5 +39,9 @@ export class ALU {
 
     div(firstOperand: number, secondOperand: number) {
         return firstOperand / secondOperand;
+    }
+
+    inc(firstOperand: number) {
+        return firstOperand + 1;
     }
 }
